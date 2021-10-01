@@ -25,7 +25,13 @@ async function getResults(heightRef) {
   const data = await resp.json();
   console.log()
   console.log('data from back', data);
-  printValues(data);
+  if (data.length === 0) {
+    message.innerHTML = "NO hay parejas que cuplan con la altura"
+  } else {
+    printValues(data);
+  }
+
+
 }
 
 function removeAllChildNodes(parent) {
@@ -35,14 +41,14 @@ function removeAllChildNodes(parent) {
 }
 
 function printValues(data) {
-  const parejas = data.length;
-  for (let i = 0; i < parejas; i++) {
+  const longitud = data.length;
+  for (let i = 0; i < longitud; i++) {
     console.log(data[i]);
     var row = tbody.insertRow(0);
     var cell1 = row.insertCell(0);
     var cell2 = row.insertCell(1);
     var cell3 = row.insertCell(1);
-    cell1.innerHTML = parejas - i;
+    cell1.innerHTML = longitud - i;
     cell2.innerHTML = `${data[i][0].first_name} ${data[i][0].last_name}`;
     cell3.innerHTML = `${data[i][1].first_name} ${data[i][1].last_name}`;
   }
